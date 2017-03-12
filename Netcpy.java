@@ -15,13 +15,15 @@ public class Netcpy{
 			System.out.println("Reading File...");
 			try{
 				FileHandle readFH = new FileHandle(temp);
-				byte[] bfn = readFH.read();
-
-				Path outputPath = Paths.get("save/output.mov");
+				Path outputPath = Paths.get("save/output.mp4");
 				Files.createFile(outputPath);
+				FileOutputStream fOS = new FileOutputStream(new File("save/output.mp4"),true);
+				
+				while(!readFH.getIsReadComplete()){
+					byte[] bfn = readFH.read();
+					fOS.write(bfn);					
+				}
 
-				FileOutputStream fOS = new FileOutputStream(new File("save/output.mov"),true);
-				fOS.write(bfn);
 				fOS.close();
 			}catch(FileNotFoundException e){
 				System.out.println("File not found"+e.getMessage());
