@@ -21,6 +21,10 @@ public class Netcpy{
 				
 				while(!readFH.getIsReadComplete()){
 					byte[] bfn = readFH.read();
+					//convert into udp packets and start sending operation
+					//check if all the packets reach the destination
+					//once they reach then start reading again and sending again until
+					//all the file is transfered to the destination.
 					fOS.write(bfn);					
 				}
 
