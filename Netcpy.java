@@ -1,10 +1,38 @@
 import java.net.*;
 import java.io.*;
+import java.nio.file.*;
 
 public class Netcpy{
 
 	public static void main(String[] args) {
-		String src_file_name = args[0];
+		File temp = new File(args[0]);
+		if (temp.exists()) {
+			System.out.println("File " + args[0] + " exists!");
+			System.out.println("****File details: ****");
+			System.out.println("File Name: " + temp.getName());
+			System.out.println("Absolute File Name: " + temp.getAbsoluteFile());
+
+			System.out.println("Reading File...");
+			try{
+				FileHandle readFH = new FileHandle(temp);
+				byte[] bfn = readFH.read();
+
+				Path outputPath = Paths.get("save/output.mov");
+				Files.createFile(outputPath);
+
+				FileOutputStream fOS = new FileOutputStream(new File("save/output.mov"),true);
+				fOS.write(bfn);
+				fOS.close();
+			}catch(FileNotFoundException e){
+				System.out.println("File not found"+e.getMessage());
+			}catch(IOException e){
+				System.out.println("IO: "+e.getMessage());
+			}
+
+		}else{
+			System.out.println("File "+args[0]+" doesn't exists!");
+		}
+		/*String src_file_name = args[0];
 		String des_file_name = args[1];
 		String comp_ip = args[2];
 		String comp_port = args[3];
@@ -23,7 +51,7 @@ public class Netcpy{
 			//send to server
 			//find acknowledgement
 			socket.send(request);
-			System.out.println("message sent toserver....");
+			System.out.println("message sent to server....");
 			byte[] buffer = new byte[1000];
 			DatagramPacket reply = new DatagramPacket(buffer, buffer.length);
 
@@ -46,6 +74,6 @@ public class Netcpy{
 		{
 			if(socket != null)
 				socket.close();
-		}
+		}*/
 	}
 }
