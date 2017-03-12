@@ -45,6 +45,7 @@ public class FileHandle {
 			System.out.println("IO: "+e.getMessage());
 		}
 
+		//to return the actual buffer with actual size
 		byte[] tempBuffer = Arrays.copyOf(buffer,readL);
 		return tempBuffer;
 	}
