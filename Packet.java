@@ -6,19 +6,11 @@ public class Packet implements Serializable {
 	private boolean isAck;
 	private boolean isPayLoad;
 	private boolean isSync;
-	private int length;
-	private byte[] data;
-	private int id;
 
-	public Packet(boolean ack, boolean payL, boolean sync, int i, int l, byte[] d){
+	public Packet(boolean ack, boolean payL, boolean sync){
 		isAck = ack;
 		isPayLoad = payL;
-		isSync = payL;
-		
-		this.id = i;
-		this.length = l;
-		this.data = new byte[512];
-		this.data = Arrays.copyOf(d,512);
+		isSync = sync;
 	}
 
 	public boolean getIsAck () {
@@ -31,18 +23,6 @@ public class Packet implements Serializable {
 
 	public boolean getIsSync () {
 		return isSync;
-	}
-
-	public int getLength () {
-		return length;
-	}
-
-	public byte[] getData () {
-		return data;
-	}
-
-	public int getId () {
-		return id;
 	}
 	
 	public void SerializePacket (String fileName) {
