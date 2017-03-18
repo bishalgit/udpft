@@ -10,10 +10,10 @@ public class Packet implements Serializable {
 	private byte[] data;
 	private int id;
 
-	public Packet(int i, int l, byte[] d){
-		isAck = false;
-		isPayLoad = false;
-		isSync = false;
+	public Packet(boolean ack, boolean payL, boolean sync, int i, int l, byte[] d){
+		isAck = ack;
+		isPayLoad = payL;
+		isSync = payL;
 		
 		this.id = i;
 		this.length = l;
@@ -21,6 +21,30 @@ public class Packet implements Serializable {
 		this.data = Arrays.copyOf(d,512);
 	}
 
+	public boolean getIsAck () {
+		return isAck;
+	}
+
+	public boolean getIsPayLoad () {
+		return isPayLoad;
+	}
+
+	public boolean getIsSync () {
+		return isSync;
+	}
+
+	public int getLength () {
+		return length;
+	}
+
+	public byte[] getData () {
+		return data;
+	}
+
+	public int getId () {
+		return id;
+	}
+	
 	public void SerializePacket (String fileName) {
 		try{
 			FileOutputStream fileOut = new FileOutputStream(fileName);
